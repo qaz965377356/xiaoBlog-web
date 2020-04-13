@@ -3,9 +3,15 @@
     <div class="me-footer">
       <p>Designed by
         <strong>
-          <router-link to="/" class="me-login-design-color">ForFun</router-link>
+          <router-link to="/" class="me-login-design-color">xX</router-link>
         </strong>
       </p>
+      <p>
+        <strong>
+          <a src="http://www.beian.miit.gov.cn/" class="me-login-design-color">赣ICP备20004632号</a>
+        </strong>
+      </p>
+
     </div>
   </el-footer>
 
