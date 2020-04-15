@@ -31,8 +31,8 @@ service.interceptors.response.use(
 
     const res = response.data;
 
-    //0 为成功状态
-    if (res.code !== 0) {
+    //200 为成功状态
+    if (res.code !== 200) {
 
       //90001 Session超时
       if (res.code === 90001) {
