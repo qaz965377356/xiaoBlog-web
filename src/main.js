@@ -11,6 +11,7 @@ import ElementUI from 'element-ui'
 import '@/assets/theme/index.css'
 
 import '@/assets/icon/iconfont.css'
+import api  from './http/index'
 
 import {formatTime} from "./utils/time";
 
@@ -18,9 +19,9 @@ import {formatTime} from "./utils/time";
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
+Vue.use(api)
 
 Object.defineProperty(Vue.prototype, '$_', { value: lodash })
-
 
 Vue.directive('title',  function (el, binding) {
   document.title = el.dataset.title
