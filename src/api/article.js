@@ -3,7 +3,7 @@ import request from '@/request'
 
 export function getArticles(query, page) {
   return request({
-    url: '/api/article',
+    url: '/api/pass/article',
     method: 'get',
     params: {
       pageNumber: page.pageNumber,
@@ -20,14 +20,14 @@ export function getArticles(query, page) {
 
 export function getHotArtices() {
   return request({
-    url: '/api/article/hot',
+    url: '/api/pass/article/hot',
     method: 'get'
   })
 }
 
 export function getNewArtices() {
   return request({
-    url: '/api/article/new',
+    url: '/api/pass/article/new',
     method: 'get'
   })
 }
@@ -64,7 +64,7 @@ export function publishArticle(article) {
 
 export function listArchives() {
   return request({
-    url: '/api/article/listArchives',
+    url: '/api/pass/article/listArchives',
     method: 'get'
   })
 }
