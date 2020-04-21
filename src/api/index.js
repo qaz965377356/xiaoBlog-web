@@ -1,18 +1,18 @@
-import article from './article';
-import category from './category';
-import comment from './comment';
+// import article from './article';
+// import category from './category';
+// import comment from './comment';
 import line from './line';
-import login from './login';
-import tag from './tag';
-import upload from './upload';
+// import login from './login';
+// import tag from './tag';
+// import upload from './upload';
 
 
 export default {
-    article,
-    category,
-    comment,
+    // article,
+    // category,
+    // comment,
     line,
-    login,
-    tag,
-    upload
+    // login,
+    // tag,
+    // upload
 }
