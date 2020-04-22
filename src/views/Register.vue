@@ -1,40 +1,64 @@
 <template>
-  <div id="register" v-title data-title="注册 - For Fun">
-    <!--<video preload="auto" class="me-video-player" autoplay="autoplay" loop="loop">
-          <source src="../../static/vedio/sea.mp4" type="video/mp4">
-      </video>-->
+    <el-row>
+      <el-row :push="4">
+        <el-form ref="userForm" :model="userForm" :rules="rules">
+          <el-row >
+            <el-col :xs="20" :sm="16" :md="12" :lg="8" :xl="4">
+              <div>用 户 注 册</div>
+            </el-col>
+          </el-row>
 
-    <div class="me-login-box me-login-box-radius">
-      <h1>ForFun 注册</h1>
+          <el-row >
+            <el-col :xs="20" :sm="16" :md="12" :lg="8" :xl="4">
+              <el-form-item prop="avrUrl">
+                <el-upload
+                  class="avatar-uploader"
+                  action="http://localhost:8888/api/pass/oss/upload"
 
-      <el-form ref="userForm" :model="userForm" :rules="rules">
-        <el-form-item prop="account">
-          <el-input placeholder="用户名" v-model="userForm.account"></el-input>
-        </el-form-item>
+                  :show-file-list="false"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="beforeAvatarUpload">
+                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+              </el-form-item>
+            </el-col>
+          </el-row>
 
-        <el-form-item prop="nickname">
-          <el-input placeholder="昵称" v-model="userForm.nickname"></el-input>
-        </el-form-item>
+          <el-row >
+            <el-col :xs="20" :sm="16" :md="12" :lg="8" :xl="4">
+              <el-form-item prop="account">
+                <el-input placeholder="用户名" v-model="userForm.account"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
 
-        <el-form-item prop="password">
-          <el-input placeholder="密码" v-model="userForm.password"></el-input>
-        </el-form-item>
+          <el-row >
+            <el-col :xs="20" :sm="16" :md="12" :lg="8" :xl="4">
+              <el-form-item prop="nickname">
+                <el-input placeholder="昵称" v-model="userForm.nickname"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
 
-        <el-form-item size="small" class="me-login-button">
-          <el-button type="primary" @click.native.prevent="register('userForm')">注册</el-button>
-        </el-form-item>
-      </el-form>
+          <el-row >
+            <el-col :xs="20" :sm="16" :md="12" :lg="8" :xl="4">
+              <el-form-item prop="password">
+                <el-input placeholder="密码" v-model="userForm.password"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
 
-      <div class="me-login-design">
-        <p>Designed by
-          <strong>
-            <router-link to="/" class="me-login-design-color">ForFun</router-link>
-          </strong>
-        </p>
-      </div>
-
-    </div>
-  </div>
+          <el-row >
+            <el-col :xs="20" :sm="16" :md="12" :lg="8" :xl="4">
+              <el-form-item size="small" class="me-login-button">
+                <el-button type="primary" @click.native.prevent="register('userForm')">注册</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+      </el-row>
+    </el-row>
 </template>
 
 <script>
@@ -44,6 +68,7 @@
     name: 'Register',
     data() {
       return {
+        imageUrl:'',
         userForm: {
           account: '',
           nickname: '',
@@ -86,39 +111,49 @@
           }
         });
 
-      }
+      },
+      handleAvatarSuccess(res, file) {
+        console.log(res);
+        console.log(file);
+        this.imageUrl = URL.createObjectURL(file.raw);
+        console.log(this.imageUrl);
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
 
-    }
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      },
+      uploadImg(param){
+        console.log(param.file);
+        this.$api.oss.uploadImg(param.file).then(res => {
+          console.log(res);
+        })
+      }
+    },
+
   }
 </script>
 
 <style scoped>
-  #login {
-    min-width: 100%;
-    min-height: 100%;
-  }
 
-  .me-video-player {
-    background-color: transparent;
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-    display: block;
-    position: absolute;
-    left: 0;
-    z-index: 0;
-    top: 0;
-  }
 
-  .me-login-box {
-    position: absolute;
-    width: 300px;
-    height: 320px;
+  .main {
+    font-size: 16px;
+    /*font-size: 24px;*/
+    /*position: absolute;*/
+    width: 7rem;
+    height: 6.2rem;
     background-color: white;
-    margin-top: 150px;
-    margin-left: -180px;
-    left: 50%;
-    padding: 30px;
+    margin-top: 1.5rem;
+    margin-left: 5.5rem;
+    padding: 0.3rem;
   }
 
   .me-login-box-radius {
@@ -149,6 +184,31 @@
 
   .me-login-button button {
     width: 100%;
+  }
+
+  /* 上传组件样式 */
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
   }
 
 </style>
