@@ -8,6 +8,7 @@
   import ArticleItem from '@/components/article/ArticleItem'
   import ScrollPage from '@/components/scrollpage'
   import {getArticles} from '@/api/article'
+  import article from "../../api/article";
 
   export default {
     name: "ArticleScrollPage",
@@ -76,9 +77,9 @@
         let that = this
         that.loading = true
 
-        getArticles(that.query, that.innerPage).then(data => {
+        that.$api.article.getArticles(that.query, that.innerPage).then(res => {
 
-          let newArticles = data.data
+          let newArticles = res.data
           if (newArticles && newArticles.length > 0) {
             that.innerPage.pageNumber += 1
             that.articles = that.articles.concat(newArticles)
@@ -86,10 +87,8 @@
             that.noData = true
           }
 
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '文章加载失败!', showClose: true})
-          }
+        }).catch(err => {
+          that.$message({type: 'error', message: '文章加载失败!', showClose: true})
         }).finally(() => {
           that.loading = false
         })

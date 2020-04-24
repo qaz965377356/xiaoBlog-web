@@ -16,7 +16,7 @@ import {Message} from 'element-ui';
 
 import store from '@/store'
 
-import {getToken} from '@/request/token'
+import {getToken} from '@/http/token'
 
 Vue.use(Router)
 

@@ -1,36 +1,13 @@
-import request from '@/request'
+import axios from '@/http/api';
 
-export function getAllTags() {
-  return request({
-    url: '/api/tags',
-    method: 'get',
-  })
+const tag = {
+  // 时间线列表
+  getHotTags () {
+    return axios({
+      url: '/pass/tag/hot',
+      method: 'get'
+    })
+  },
 }
 
-export function getAllTagsDetail() {
-  return request({
-    url: '/api/tags/detail',
-    method: 'get',
-  })
-}
-
-export function getHotTags() {
-  return request({
-    url: '/api/pass/tag/hot',
-    method: 'get',
-  })
-}
-
-export function getTag(id) {
-  return request({
-    url: `/api/tags/${id}`,
-    method: 'get',
-  })
-}
-
-export function getTagDetail(id) {
-  return request({
-    url: `/api/tags/detail/${id}`,
-    method: 'get',
-  })
-}
+export default tag;

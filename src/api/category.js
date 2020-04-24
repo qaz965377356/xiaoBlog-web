@@ -1,29 +1,32 @@
-import request from '@/request'
+import axios from '@/http/api';
 
-export function getAllCategorys() {
-  return request({
-    url: '/api/categorys',
-    method: 'get',
-  })
+
+const categorys = {
+  // 时间线列表
+  getAllCategorys () {
+    return axios({
+      url: '/pass/categorys',
+      method: 'get'
+    })
+  },
+  getAllCategorysDetail () {
+    return axios({
+      url: '/pass？categorys/detail',
+      method: 'get'
+    })
+  },
+  getCategory (id) {
+    return axios({
+      url: '/pass/categorys/' + id,
+      method: 'get'
+    })
+  },
+  getCategoryDetail (id) {
+    return axios({
+      url: '/pass/categorys/detail/' + id,
+      method: 'get'
+    })
+  },
 }
 
-export function getAllCategorysDetail() {
-  return request({
-    url: '/api/categorys/detail',
-    method: 'get',
-  })
-}
-
-export function getCategory(id) {
-  return request({
-    url: `/api/categorys/${id}`,
-    method: 'get',
-  })
-}
-
-export function getCategoryDetail(id) {
-  return request({
-    url: `/api/categorys/detail/${id}`,
-    method: 'get',
-  })
-}
+export default categorys;

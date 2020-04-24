@@ -1,77 +1,74 @@
-import request from '@/request'
+import axios from '@/http/api';
+import line from "./line";
 
+const article = {
+  // 时间线列表
+  getArticles (query,page) {
+    return axios({
+      url: '/pass/article',
+      method: 'get',
+      params: {
+        pageNumber: page.pageNumber,
+        pageSize: page.pageSize,
+        name: page.name,
+        sort: page.sort,
+        year: query.year,
+        month: query.month,
+        tagId: query.tagId,
+        categoryId: query.categoryId
+      }
+    })
+  },
+  getHotArtices () {
+    return axios({
+      url: '/pass/article/hot',
+      method: 'get',
+    })
+  },
+  getNewArtices () {
+    return axios({
+      url: '/pass/article/new',
+      method: 'get',
+    })
+  },
+  viewArticle (id) {
+    return axios({
+      url: '/pass/articleBody/view/' + id,
+      method: 'get',
+    })
+  },
+  getArticlesByCategory (id) {
+    return axios({
+      url: '/pass/article/category/' + id,
+      method: 'get',
+    })
+  },
+  getArticlesByTag (id) {
+    return axios({
+      url: '/pass/article/tag/' + id,
+      method: 'get',
+    })
+  },
+  publishArticle (article) {
+    return axios({
+      url: '/pass/article/publish',
+      method: 'post',
+      data: article
+    })
+  },
+  listArchives () {
+    return axios({
+      url: '/pass/article/listArchives',
+      method: 'get',
+    })
+  },
+  getArticleById (id) {
+    return axios({
+      url: '/pass/article/' + id,
+      method: 'get',
+    })
+  },
 
-export function getArticles(query, page) {
-  return request({
-    url: '/api/pass/article',
-    method: 'get',
-    params: {
-      pageNumber: page.pageNumber,
-      pageSize: page.pageSize,
-      name: page.name,
-      sort: page.sort,
-      year: query.year,
-      month: query.month,
-      tagId: query.tagId,
-      categoryId: query.categoryId
-    }
-  })
 }
 
-export function getHotArtices() {
-  return request({
-    url: '/api/pass/article/hot',
-    method: 'get'
-  })
-}
-
-export function getNewArtices() {
-  return request({
-    url: '/api/pass/article/new',
-    method: 'get'
-  })
-}
-
-export function viewArticle(id) {
-  return request({
-    url: `/api/pass/articleBody/view/${id}`,
-    method: 'get'
-  })
-}
-
-export function getArticlesByCategory(id) {
-  return request({
-    url: `/api/pass/article/category/${id}`,
-    method: 'get'
-  })
-}
-
-export function getArticlesByTag(id) {
-  return request({
-    url: `/api/pass/article/tag/${id}`,
-    method: 'get'
-  })
-}
-
-
-export function publishArticle(article) {
-  return request({
-    url: '/api/pass/article/publish',
-    method: 'post',
-    data: article
-  })
-}
-
-export function listArchives() {
-  return request({
-    url: '/api/pass/article/listArchives',
-    method: 'get'
-  })
-}
-
-export function getArticleById(id) {
-  return request({
-    url: `/api/pass/article/${id}`,
-    method: 'get'
-  })
-}
+export default article;

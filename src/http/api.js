@@ -31,25 +31,23 @@ export default function $axios(options) {
     instance.interceptors.request.use(
       config => {
 
-        console.log(config);
+        let apiUrl = config.url;
         let token = getToken();
-        console.log(store.state.loading)
-        if (token) {
-          config.headers.accessToken = token
-        } else {
-          // 重定向到登录页面
-          // router.push('/login')
+        console.log(apiUrl);
+        if (apiUrl.substring(0,6) == '/pass/'){
+          //放行，不带token
+
+        }else {
+          if (token) {
+            config.headers.accessToken = token
+          }else {
+            //需要token的请求但是没找到token，登录
+            router.push('/login')
+          }
         }
         // 根据请求方法，序列化传来的参数，根据后端需求是否序列化
         if (config.method === 'post') {
-          if (config.data.__proto__ === FormData.prototype
-            || config.url.endsWith('path')
-            || config.url.endsWith('mark')
-            || config.url.endsWith('patchs')
-          ) {
-          } else {
-            config.data = qs.stringify(config.data)
-          }
+          //TODO
         }
         return config
       },

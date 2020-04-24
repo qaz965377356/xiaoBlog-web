@@ -2,7 +2,7 @@
 import axios from '@/http/api';
 
 
-const article = {
+const line = {
     // 时间线列表
     list () {
         return axios({
@@ -12,4 +12,4 @@ const article = {
     },
 }
 
-export default article;
+export default line;

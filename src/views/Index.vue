@@ -32,10 +32,6 @@
   import CardTag from '@/components/card/CardTag'
   import ArticleScrollPage from '@/views/common/ArticleScrollPage'
 
-  import {getArticles, getHotArtices, getNewArtices} from '@/api/article'
-  import {getHotTags} from '@/api/tag'
-  import {listArchives} from '@/api/article'
-
   export default {
     name: 'Index',
     created() {
@@ -55,49 +51,36 @@
     methods: {
       getHotArtices() {
         let that = this
-        getHotArtices().then(data => {
-          that.hotArticles = data.data
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '最热文章加载失败!', showClose: true})
-          }
-
+        that.$api.article.getHotArtices().then(res => {
+          that.hotArticles = res.data
+        }).catch(err => {
+          that.$message({type: 'error', message: '最热文章加载失败!', showClose: true})
         })
-
       },
       getNewArtices() {
         let that = this
-        getNewArtices().then(data => {
-          that.newArticles = data.data
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '最新文章加载失败!', showClose: true})
-          }
-
+        that.$api.article.getNewArtices().then(res => {
+          that.newArticles = res.data
+        }).catch(err => {
+          that.$message({type: 'error', message: '最新文章加载失败!', showClose: true})
         })
-
       },
       getHotTags() {
         let that = this
-        getHotTags().then(data => {
-          that.hotTags = data.data
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '最热标签加载失败!', showClose: true})
-          }
-
+        that.$api.tag.getHotTags().then(res => {
+          that.hotTags = res.data
+        }).catch(err => {
+          that.$message({type: 'error', message: '最热标签加载失败!', showClose: true})
         })
       },
       listArchives() {
-        listArchives().then((data => {
-          this.archives = data.data
-        })).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '文章归档加载失败!', showClose: true})
-          }
+        let that = this
+        that.$api.article.listArchives().then(res => {
+          this.archives = res.data
+        }).catch(err => {
+          that.$message({type: 'error', message: '文章归档加载失败!', showClose: true})
         })
       }
-
     },
     components: {
       'card-me': CardMe,

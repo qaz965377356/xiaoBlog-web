@@ -1,4 +1,3 @@
-import request from '@/request'
 
 export function login(account, password) {
   const data = {

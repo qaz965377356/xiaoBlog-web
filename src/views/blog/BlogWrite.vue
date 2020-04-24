@@ -67,9 +67,6 @@
 <script>
   import BaseHeader from '@/views/BaseHeader'
   import MarkdownEditor from '@/components/markdown/MarkdownEditor'
-  import {publishArticle, getArticleById} from '@/api/article'
-  import {getAllCategorys} from '@/api/category'
-  import {getAllTags} from '@/api/tag'
 
   export default {
     name: 'BlogWrite',
@@ -216,17 +213,13 @@
               lock: true,
               text: '发布中，请稍后...'
             })
-
-            publishArticle(article).then((data) => {
+            that.$api.article.publishArticle(article).then(res => {
               loading.close();
               that.$message({message: '发布成功啦', type: 'success', showClose: true})
               that.$router.push({path: `/view/${data.data.articleId}`})
-
-            }).catch((error) => {
+            }).catch(err => {
               loading.close();
-              if (error !== 'error') {
-                that.$message({message: error, type: 'error', showClose: true});
-              }
+              that.$message({message: error, type: 'error', showClose: true});
             })
 
           } else {
@@ -245,20 +238,16 @@
       },
       getCategorysAndTags() {
         let that = this
-        getAllCategorys().then(data => {
-          that.categorys = data.data
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '文章分类加载失败', showClose: true})
-          }
+        that.$api.categorys.getAllCategorys().then(res => {
+          that.categorys = res.data
+        }).catch(err => {
+          that.$message({type: 'error', message: '文章分类加载失败', showClose: true})
         })
 
-        getAllTags().then(data => {
-          that.tags = data.data
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '标签加载失败', showClose: true})
-          }
+        that.$api.categorys.getAllTags().then(res => {
+          that.tags = res.data
+        }).catch(err => {
+          that.$message({type: 'error', message: '标签加载失败', showClose: true})
         })
 
       },

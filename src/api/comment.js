@@ -1,18 +1,15 @@
-import request from '@/request'
+
+import axios from '@/http/api';
 
 
-export function getCommentsByArticle(id) {
-  return request({
-    url: `/api/comments/article/${id}`,
-    method: 'get'
-  })
+const comment = {
+  // 时间线列表
+  list () {
+    return axios({
+      url: '/line/list',
+      method: 'get'
+    })
+  },
 }
 
-export function publishComment(comment) {
-  return request({
-    url: '/api/comments/create/change',
-    method: 'post',
-    data: comment
-  })
-}
-
+export default comment;

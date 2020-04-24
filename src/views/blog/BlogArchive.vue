@@ -28,7 +28,6 @@
 
 <script>
   import ArticleScrollPage from '@/views/common/ArticleScrollPage'
-  import {listArchives} from '@/api/article'
 
   export default {
     name: "BlogArchive",
@@ -77,9 +76,10 @@
         this.$router.push({path: `/archives/${year}/${month}`})
       },
       listArchives() {
-        listArchives().then((data => {
-          this.archives = data.data
-        })).catch(error => {
+        let that = this
+        that.$api.article.listArchives().then(res => {
+          this.archives = res.data
+        }).catch(err => {
           that.$message({type: 'error', message: '文章归档加载失败!', showClose: true})
         })
       }

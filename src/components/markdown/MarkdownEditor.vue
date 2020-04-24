@@ -3,9 +3,10 @@
     class="me-editor"
     ref="md"
     v-model="editor.value"
-    @imgAdd="imgAdd"
+
     v-bind="editor">
   </mavon-editor>
+<!--  @imgAdd="imgAdd"-->
 </template>
 
 
@@ -13,8 +14,6 @@
 
   import {mavonEditor} from 'mavon-editor'
   import 'mavon-editor/dist/css/index.css'
-
-  import {upload} from '@/api/upload'
 
   export default {
     name: 'MarkdownEditor',
@@ -28,7 +27,7 @@
       this.$set(this.editor, 'ref', this.$refs.md)
     },
     methods: {
-      imgAdd(pos, $file) {
+      /*imgAdd(pos, $file) {
         let that = this
         let formdata = new FormData();
         formdata.append('image', $file);
@@ -45,7 +44,7 @@
         }).catch(err => {
           that.$message({message: err, type: 'error', showClose: true});
         })
-      }
+      }*/
     },
     components: {
       mavonEditor
