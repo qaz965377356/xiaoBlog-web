@@ -172,15 +172,13 @@
       },
       getArticle() {
         let that = this
-        viewArticle(that.$route.params.id).then(data => {
+        const parId = that.$route.params.id
+        that.$api.article.viewArticle(parId).then(res => {
           Object.assign(that.article, data.data)
           that.article.editor.value = data.data.body.content
-
           that.getCommentsByArticle()
-        }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '文章加载失败', showClose: true})
-          }
+        }).catch(err => {
+          that.$message({type: 'error', message: '文章加载失败', showClose: true})
         })
       },
       publishComment() {
