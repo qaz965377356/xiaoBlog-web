@@ -31,6 +31,7 @@ export default function $axios(options) {
     instance.interceptors.request.use(
       config => {
 
+        console.log(config);
         let token = getToken();
         console.log(store.state.loading)
         if (token) {

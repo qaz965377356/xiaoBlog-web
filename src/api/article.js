@@ -3,7 +3,7 @@ import request from '@/request'
 
 export function getArticles(query, page) {
   return request({
-    url: '/api/article',
+    url: '/api/pass/article',
     method: 'get',
     params: {
       pageNumber: page.pageNumber,
@@ -20,35 +20,35 @@ export function getArticles(query, page) {
 
 export function getHotArtices() {
   return request({
-    url: '/api/article/hot',
+    url: '/api/pass/article/hot',
     method: 'get'
   })
 }
 
 export function getNewArtices() {
   return request({
-    url: '/api/article/new',
+    url: '/api/pass/article/new',
     method: 'get'
   })
 }
 
 export function viewArticle(id) {
   return request({
-    url: `/api/article/view/${id}`,
+    url: `/api/pass/article/view/${id}`,
     method: 'get'
   })
 }
 
 export function getArticlesByCategory(id) {
   return request({
-    url: `/api/article/category/${id}`,
+    url: `/api/pass/article/category/${id}`,
     method: 'get'
   })
 }
 
 export function getArticlesByTag(id) {
   return request({
-    url: `/api/article/tag/${id}`,
+    url: `/api/pass/article/tag/${id}`,
     method: 'get'
   })
 }
@@ -56,7 +56,7 @@ export function getArticlesByTag(id) {
 
 export function publishArticle(article) {
   return request({
-    url: '/api/article/publish',
+    url: '/api/pass/article/publish',
     method: 'post',
     data: article
   })
@@ -64,14 +64,14 @@ export function publishArticle(article) {
 
 export function listArchives() {
   return request({
-    url: '/api/article/listArchives',
+    url: '/api/pass/article/listArchives',
     method: 'get'
   })
 }
 
 export function getArticleById(id) {
   return request({
-    url: `/api/article/${id}`,
+    url: `/api/pass/article/${id}`,
     method: 'get'
   })
 }

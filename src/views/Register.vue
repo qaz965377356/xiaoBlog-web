@@ -8,7 +8,7 @@
             </el-col>
           </el-row>
 
-          <el-row >
+        <!--  <el-row >
             <el-col :xs="20" :sm="16" :md="12" :lg="8" :xl="4">
               <el-form-item prop="avrUrl">
                 <el-upload
@@ -23,7 +23,7 @@
                 </el-upload>
               </el-form-item>
             </el-col>
-          </el-row>
+          </el-row>-->
 
           <el-row >
             <el-col :xs="20" :sm="16" :md="12" :lg="8" :xl="4">
