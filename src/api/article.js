@@ -34,7 +34,7 @@ export function getNewArtices() {
 
 export function viewArticle(id) {
   return request({
-    url: `/api/pass/article/view/${id}`,
+    url: `/api/pass/articleBody/view/${id}`,
     method: 'get'
   })
 }

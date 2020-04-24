@@ -16,7 +16,7 @@ export function getAllTagsDetail() {
 
 export function getHotTags() {
   return request({
-    url: '/api/tags/hot',
+    url: '/api/pass/tag/hot',
     method: 'get',
   })
 }

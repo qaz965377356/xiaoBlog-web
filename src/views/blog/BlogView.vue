@@ -19,7 +19,7 @@
             <div class="me-view-info">
               <span>{{article.author.nickname}}</span>
               <div class="me-view-meta">
-                <span>{{article.createDate | format}}</span>
+                <span>{{article.createdDate | format}}</span>
                 <span>阅读   {{article.viewCounts}}</span>
                 <span>评论   {{article.commentCounts}}</span>
               </div>
@@ -135,7 +135,7 @@
           author: {},
           tags: [],
           category:{},
-          createDate: '',
+          createdDate: '',
           editor: {
             value: '',
             toolbarsFlag: false,
