@@ -3,7 +3,7 @@ import categorys from './category';
 // import comment from './comment';
 import line from './line';
 import oss from './oss';
-// import login from './login';
+import user from './login';
 import tag from './tag';
 // import upload from './upload';
 
@@ -14,6 +14,7 @@ export default {
     // comment,
     line,
     oss,
+    user,
     // login,
     tag,
     // upload

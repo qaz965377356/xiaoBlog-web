@@ -39,7 +39,7 @@ export default function $axios(options) {
 
         }else {
           if (token) {
-            config.headers.accessToken = token
+            config.headers.token = token
           }else {
             //需要token的请求但是没找到token，登录
             router.push('/login')
@@ -82,6 +82,7 @@ export default function $axios(options) {
         // IE9时response.data是undefined，因此需要使用response.request.responseText(Stringify后的字符串)
         if (response.data == undefined) {
           data = JSON.parse(response.request.responseText)
+          console.log(JSON.parse(response.request.responseText))
         } else {
           data = response.data
         }
@@ -89,11 +90,17 @@ export default function $axios(options) {
         switch (data.code) {
           case 200:
             console.log("请求成功，code：200");
-            console.log(data.data);
             break;
-          case 0:
-            store.commit('changeState');
+          case 400:
+            tip(data.msg);
+            break;
             // console.log('登录成功')
+          case 401:
+            tip(data.msg);
+            break
+          case 403:
+            tip(data.msg);
+            break
           default:
         }
         // 若不是正确的返回code，且已经登录，就抛出错误
