@@ -9,7 +9,7 @@
 
       <el-form ref="userForm" :model="userForm" :rules="rules">
         <el-form-item prop="account">
-          <el-input placeholder="用户名" v-model="userForm.account"></el-input>
+          <el-input placeholder="用户名" v-model="userForm.userName"></el-input>
         </el-form-item>
 
         <el-form-item prop="password">
@@ -34,22 +34,24 @@
 </template>
 
 <script>
+  import {getToken,setToken} from '@/http/token'
+
   export default {
     name: 'Login',
     data() {
       return {
         userForm: {
-          account: '',
+          userName: '',
           password: ''
         },
         rules: {
-          account: [
+          userName: [
             {required: true, message: '请输入用户名', trigger: 'blur'},
             {max: 10, message: '不能大于10个字符', trigger: 'blur'}
           ],
           password: [
             {required: true, message: '请输入密码', trigger: 'blur'},
-            {max: 10, message: '不能大于10个字符', trigger: 'blur'}
+            {max: 29, message: '不能大于20个字符', trigger: 'blur'}
           ]
         }
       }
@@ -60,13 +62,15 @@
 
         this.$refs[formName].validate((valid) => {
           if (valid) {
-
-            that.$store.dispatch('login', that.userForm).then(() => {
-              that.$router.go(-1)
-            }).catch((error) => {
-              if (error !== 'error') {
-                that.$message({message: error, type: 'error', showClose: true});
+            that.$api.user.login(that.userForm).then(res => {
+              if (res.code == 200){
+                that.$message({message: '登陆成功', type: 'success', showClose: true});
+                //将token放进缓存
+                setToken(res.data);
+                // that.$router.go(-1)
               }
+            }).catch(ree => {
+              that.$message({message: "网络错误，请稍后重试", type: 'error', showClose: true});
             })
           } else {
             return false;

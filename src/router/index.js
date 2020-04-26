@@ -31,7 +31,6 @@ const router = new Router({
     },
     {
       path: '',
-      name: 'Home',
       component: Home,
       children: [
         {
@@ -80,9 +79,9 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-
-  if (getToken()) {
-
+  next();
+  /*if (getToken()) {
+    console.log("a" +to.path );
     if (to.path === '/login') {
       next({path: '/'})
     } else {
@@ -108,7 +107,7 @@ router.beforeEach((to, from, next) => {
     else {
       next();
     }
-  }
+  }*/
 })
 
 
