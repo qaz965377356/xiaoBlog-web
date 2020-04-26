@@ -45,7 +45,14 @@
             <el-menu-item>
             <el-dropdown>
               <span class="el-dropdown-link">
-                <img class="me-header-picture" :src="user.avatar"/>&nbsp;&nbsp;{{user.name}}<i class="el-icon-arrow-down"></i>
+                <el-avatar v-if="user.avatar == ''">
+                  <img class="me-header-picture" :src="user.avatar"/>&nbsp;&nbsp;{{user.name}}<i class="el-icon-arrow-down"></i>
+                </el-avatar>
+                <el-avatar size="medium" shape="circle" v-else>
+                  <img class="me-header-picture" src="/static/user/user_1.png"/>&nbsp;&nbsp;{{user.name}}<i class="el-icon-arrow-down"></i>
+                </el-avatar>
+
+
 <!--                下拉菜单<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
               </span>
               <el-dropdown-menu slot="dropdown">
