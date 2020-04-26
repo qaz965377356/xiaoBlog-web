@@ -173,8 +173,8 @@
         let that = this
         const parId = that.$route.params.id
         that.$api.article.viewArticle(parId).then(res => {
-          Object.assign(that.article, data.data)
-          that.article.editor.value = data.data.body.content
+          Object.assign(that.article, res.data)
+          that.article.editor.value = res.data.body.content
           that.getCommentsByArticle()
         }).catch(err => {
           that.$message({type: 'error', message: '文章加载失败', showClose: true})
