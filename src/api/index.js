@@ -3,7 +3,7 @@ import categorys from './category';
 // import comment from './comment';
 import line from './line';
 import oss from './oss';
-import user from './login';
+import user from './user';
 import tag from './tag';
 // import upload from './upload';
 

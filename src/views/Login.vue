@@ -67,7 +67,10 @@
                 that.$message({message: '登陆成功', type: 'success', showClose: true});
                 //将token放进缓存
                 setToken(res.data);
-                // that.$router.go(-1)
+                this.$store.dispatch('getUserInfo').then(data => {
+                  console.log(data);
+                })
+                that.$router.go(-1);
               }
             }).catch(ree => {
               that.$message({message: "网络错误，请稍后重试", type: 'error', showClose: true});

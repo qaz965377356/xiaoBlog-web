@@ -97,6 +97,10 @@ export default function $axios(options) {
             // console.log('登录成功')
           case 401:
             tip(data.msg);
+            //未登录，跳转到登录页面嗷
+            router.push({
+              path: `/login`
+            })
             break
           case 403:
             tip(data.msg);

@@ -18,6 +18,13 @@ const user = {
       data:data,
     })
   },
+  getUserInfo (id) {
+    return axios({
+      url: '/user/getuserinfo',
+      method: 'get',
+      data:id,
+    })
+  },
 }
 
 export default user;

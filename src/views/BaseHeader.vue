@@ -42,12 +42,25 @@
           </template>
 
           <template v-else>
-            <el-submenu index>
+            <el-menu-item>
+            <el-dropdown>
+              <span class="el-dropdown-link">
+                <img class="me-header-picture" :src="user.avatar"/>&nbsp;&nbsp;{{user.name}}<i class="el-icon-arrow-down"></i>
+<!--                下拉菜单<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item @click="userCenter"><i class="el-icon-setting"></i>&nbsp;个人中心</el-dropdown-item>
+                <el-dropdown-item @click="logout"><i class="el-icon-back"></i>&nbsp;退出</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+            </el-menu-item>
+<!--            <el-submenu index mode="vertical">
               <template slot="title">
                 <img class="me-header-picture" :src="user.avatar"/>
               </template>
-              <el-menu-item index @click="logout"><i class="el-icon-back"></i>退出</el-menu-item>
-            </el-submenu>
+              <el-menu-item index="1" @click="userCenter"><i class="el-icon-user"></i>个人中心</el-menu-item>
+              <el-menu-item index="2" @click="logout"></el-menu-item>
+            </el-submenu>-->
           </template>
         </el-menu>
       </el-col>
@@ -71,10 +84,12 @@
     },
     computed: {
       user() {
-        let login = this.$store.state.account.length != 0
+        let login = this.$store.state.userName.length != 0
         let avatar = this.$store.state.avatar
+        let name = this.$store.state.name
+        console.log( this.$store.state.name);
         return {
-          login, avatar
+          login, avatar,name
         }
       }
     },
@@ -88,6 +103,11 @@
             that.$message({message: error, type: 'error', showClose: true});
           }
         })
+      },
+      userCenter(){
+        //跳转个人中心
+        let id = this.$store.state.id;
+        // this.$router.push({path: '/'})
       }
     }
   }
