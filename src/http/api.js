@@ -7,6 +7,8 @@ import store from '@/store'
 import {Message} from 'element-ui'
 
 import {getToken} from '@/http/token'
+// import store from '@/store/index'
+
 // 使用vuex做全局loading时使用
 // import store from '@/store'
 
@@ -19,6 +21,7 @@ const tip = msg => {
 }
 
 export default function $axios(options) {
+  // let that = this;
   return new Promise((resolve, reject) => {
     const instance = axios.create({
       baseURL: config.baseURL,
@@ -79,6 +82,7 @@ export default function $axios(options) {
 
       response => {
         let data;
+
         // IE9时response.data是undefined，因此需要使用response.request.responseText(Stringify后的字符串)
         if (response.data == undefined) {
           data = JSON.parse(response.request.responseText)
@@ -90,6 +94,18 @@ export default function $axios(options) {
         switch (data.code) {
           case 200:
             console.log("请求成功，code：200");
+            //请求成功时判断下store里的id在不在，不在就尝试请求一次用户信息过来
+            let id = store.state.id;
+            if (id == '' || id == null){
+              //请求一次
+              store.dispatch('getUserInfo').then(data => {
+
+              }).catch(err => {
+
+              })
+            }else {
+              //do nothing
+            }
             break;
           case 400:
             tip(data.msg);
