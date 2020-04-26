@@ -111,7 +111,6 @@
 <script>
   import MarkdownEditor from '@/components/markdown/MarkdownEditor'
   import CommmentItem from '@/components/comment/CommentItem'
-  import {viewArticle} from '@/api/article'
   import {getCommentsByArticle, publishComment} from '@/api/comment'
 
   import default_avatar from '@/assets/img/default_avatar.png'
@@ -172,15 +171,13 @@
       },
       getArticle() {
         let that = this
-        viewArticle(that.$route.params.id).then(data => {
-          Object.assign(that.article, data.data)
-          that.article.editor.value = data.data.body.content
+        that.$api.article.viewArticle(that.$route.params.id).then(res => {
+          Object.assign(that.article, res.data)
+          that.article.editor.value = res.data.body.content
 
           that.getCommentsByArticle()
-        }).catch(error => {
-          if (error !== 'error') {
+        }).catch(err => {
             that.$message({type: 'error', message: '文章加载失败', showClose: true})
-          }
         })
       },
       publishComment() {
@@ -189,26 +186,21 @@
           return;
         }
         that.comment.article.id = that.article.id
-
-        publishComment(that.comment).then(data => {
+        that.$api.comment.publishComment(that.comment).then(res => {
           that.$message({type: 'success', message: '评论成功', showClose: true})
-          that.comments.unshift(data.data)
+          that.comments.unshift(res.data)
           that.commentCountsIncrement()
           that.comment.content = ''
-        }).catch(error => {
-          if (error !== 'error') {
+        }).catch(err => {
             that.$message({type: 'error', message: '评论失败', showClose: true})
-          }
         })
       },
       getCommentsByArticle() {
         let that = this
-        getCommentsByArticle(that.article.id).then(data => {
-          that.comments = data.data
-        }).catch(error => {
-          if (error !== 'error') {
+        that.$api.comment.getCommentsByArticle(that.article.id).then(res => {
+          that.comments = res.data
+        }).catch(err => {
             that.$message({type: 'error', message: '评论加载失败', showClose: true})
-          }
         })
       },
       commentCountsIncrement() {
