@@ -70,7 +70,6 @@
 </template>
 
 <script>
-  import {register} from '@/api/login'
 
   export default {
     name: 'Register',
