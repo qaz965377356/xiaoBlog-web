@@ -6,7 +6,7 @@ import router from '@/router'
 import store from '@/store'
 import {Message} from 'element-ui'
 
-import {getToken} from '@/http/token'
+import {getToken,removeToken,removeUserInfo} from '@/http/token'
 // import store from '@/store/index'
 
 // 使用vuex做全局loading时使用
@@ -94,18 +94,7 @@ export default function $axios(options) {
         switch (data.code) {
           case 200:
             console.log("请求成功，code：200");
-            //请求成功时判断下store里的id在不在，不在就尝试请求一次用户信息过来
-            let id = store.state.id;
-            if (id == '' || id == null){
-              //请求一次
-              store.dispatch('getUserInfo').then(data => {
 
-              }).catch(err => {
-
-              })
-            }else {
-              //do nothing
-            }
             break;
           case 400:
             tip(data.msg);
@@ -114,6 +103,9 @@ export default function $axios(options) {
           case 401:
             tip(data.msg);
             //未登录，跳转到登录页面嗷
+            // 清掉用户缓存
+            removeToken();
+            removeUserInfo();
             router.push({
               path: `/login`
             })
