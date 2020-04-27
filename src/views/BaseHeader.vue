@@ -45,10 +45,10 @@
             <el-menu-item>
             <el-dropdown>
               <span class="el-dropdown-link">
-                <el-avatar v-if="user.avatar == ''">
+                <el-avatar v-if="user.avatar">
                   <img class="me-header-picture" :src="user.avatar"/>&nbsp;&nbsp;{{user.name}}<i class="el-icon-arrow-down"></i>
                 </el-avatar>
-                <el-avatar size="medium" shape="circle" v-else>
+                <el-avatar size="medium" shape="circle" v-if="!user.avatar">
                   <img class="me-header-picture" src="/static/user/user_1.png"/>&nbsp;&nbsp;{{user.name}}<i class="el-icon-arrow-down"></i>
                 </el-avatar>
 
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+  import {getToken,setToken,getUserInfo} from '@/http/token'
   export default {
     name: 'BaseHeader',
     props: {
@@ -91,10 +92,13 @@
     },
     computed: {
       user() {
-        let login = this.$store.state.userName.length != 0
-        let avatar = this.$store.state.avatar
-        let name = this.$store.state.name
-        console.log( this.$store.state.name);
+        let userinfo = getUserInfo();
+        let login = userinfo.userName.length != 0
+        let avatar = userinfo.userImg
+        let name = userinfo.nickName
+        avatar += "_lower";
+        console.log(avatar);
+        // console.log( this.$store.state.name);
         return {
           login, avatar,name
         }
@@ -113,8 +117,9 @@
       },
       userCenter(){
         //跳转个人中心
-        let id = this.$store.state.id;
-        // this.$router.push({path: '/'})
+        let userinfo = getUserInfo();
+        let id = userinfo.id;
+        this.$router.push({path: '/usercenter/' + id})
       }
     }
   }

@@ -60,6 +60,10 @@ const router = new Router({
         {
           path: '/:type/:id',
           component: r => require.ensure([], () => r(require('@/views/blog/BlogCategoryTag')), 'blogcategorytag')
+        },
+        {
+          path: '/usercenter/:id',
+          component: r => require.ensure([], () => r(require('@/views/UserCenter')), 'UserCenter')
         }
       ]
     },

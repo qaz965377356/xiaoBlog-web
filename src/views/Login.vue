@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import {getToken,setToken} from '@/http/token'
+  import {getToken,setToken,setUserInfo} from '@/http/token'
 
   export default {
     name: 'Login',
@@ -66,10 +66,19 @@
               if (res.code == 200){
                 that.$message({message: '登陆成功', type: 'success', showClose: true});
                 //将token放进缓存
-                setToken(res.data);
-                this.$store.dispatch('getUserInfo').then(data => {
-                  console.log(data);
-                })
+                console.log(res.data);
+                let userinfo = {
+                  nickName:'',
+                  userName:'',
+                  id:'',
+                  userImg:'',
+                };
+                userinfo.nickName = res.data.nickName;
+                userinfo.userName = res.data.userName;
+                userinfo.id = res.data.id;
+                userinfo.userImg = res.data.userImg;
+                setUserInfo(userinfo);
+                setToken(res.data.token);
                 that.$router.go(-1);
               }
             }).catch(ree => {
