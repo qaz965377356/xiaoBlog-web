@@ -11,16 +11,7 @@
         <!--  <el-row >
             <el-col :xs="20" :sm="16" :md="12" :lg="8" :xl="4">
               <el-form-item prop="avrUrl">
-                <el-upload
-                  class="avatar-uploader"
-                  action="http://localhost:8888/api/pass/oss/upload"
 
-                  :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
-                  :before-upload="beforeAvatarUpload">
-                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
               </el-form-item>
             </el-col>
           </el-row>-->
@@ -154,30 +145,6 @@
         });
 
       },
-      handleAvatarSuccess(res, file) {
-        console.log(res);
-        console.log(file);
-        this.imageUrl = URL.createObjectURL(file.raw);
-        console.log(this.imageUrl);
-      },
-      beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
-      },
-      uploadImg(param){
-        console.log(param.file);
-        this.$api.oss.uploadImg(param.file).then(res => {
-          console.log(res);
-        })
-      }
     },
 
   }

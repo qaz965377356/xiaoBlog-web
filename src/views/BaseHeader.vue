@@ -8,7 +8,7 @@
         </router-link>
       </el-col>
 
-      <el-col v-if="!simple" :span="16">
+      <el-col v-if="!simple" :span="20">
         <el-menu :router=true menu-trigger="click" active-text-color="#5FB878" :default-active="activeIndex"
                  mode="horizontal">
           <el-menu-item index="/">首页</el-menu-item>
@@ -21,17 +21,6 @@
           <el-col :span="4" :offset="4">
             <el-menu-item index="/write"><i class="el-icon-edit"></i>写文章</el-menu-item>
           </el-col>
-
-        </el-menu>
-      </el-col>
-
-      <template v-else>
-        <slot></slot>
-      </template>
-
-      <el-col :span="4">
-        <el-menu :router=true menu-trigger="click" mode="horizontal" active-text-color="#5FB878">
-
           <template v-if="!user.login">
             <el-menu-item index="/login">
               <el-button type="text">登录</el-button>
@@ -42,39 +31,28 @@
           </template>
 
           <template v-else>
-            <el-menu-item>
-            <el-dropdown>
-              <span class="el-dropdown-link">
+            <el-submenu mode="vertical" class="sub_menu">
+              <template slot="title">
                 <el-avatar v-if="user.avatar">
-                  <img class="me-header-picture" :src="user.avatar"/>&nbsp;&nbsp;{{user.name}}<i class="el-icon-arrow-down"></i>
+                  <img class="me-header-picture" :src="user.avatar"/>&nbsp;&nbsp;{{user.name}}
                 </el-avatar>
                 <el-avatar size="medium" shape="circle" v-if="!user.avatar">
-                  <img class="me-header-picture" src="/static/user/user_1.png"/>&nbsp;&nbsp;{{user.name}}<i class="el-icon-arrow-down"></i>
+                  <img class="me-header-picture" src="/static/user/user_1.png"/>
                 </el-avatar>
-
-
-<!--                下拉菜单<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
-              </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click="userCenter"><i class="el-icon-setting"></i>&nbsp;个人中心</el-dropdown-item>
-                <el-dropdown-item @click="logout"><i class="el-icon-back"></i>&nbsp;退出</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            </el-menu-item>
-<!--            <el-submenu index mode="vertical">
-              <template slot="title">
-                <img class="me-header-picture" :src="user.avatar"/>
               </template>
-              <el-menu-item index="1" @click="userCenter"><i class="el-icon-user"></i>个人中心</el-menu-item>
-              <el-menu-item index="2" @click="logout"></el-menu-item>
-            </el-submenu>-->
+              <el-menu-item index="/usercenter/16"><i class="el-icon-setting"></i>&nbsp;个人中心</el-menu-item>
+              <el-menu-item><i class="el-icon-back"></i>&nbsp;退出</el-menu-item>
+            </el-submenu>
           </template>
         </el-menu>
       </el-col>
-
     </el-row>
   </el-header>
+
+
 </template>
+
+
 
 <script>
   import {getToken,setToken,getUserInfo} from '@/http/token'
@@ -93,11 +71,21 @@
     computed: {
       user() {
         let userinfo = getUserInfo();
-        let login = userinfo.userName.length != 0
-        let avatar = userinfo.userImg
-        let name = userinfo.nickName
-        avatar += "_lower";
-        console.log(avatar);
+        console.log(userinfo);
+        let login = false
+        let avatar = ''
+        let name = ''
+        if (userinfo != null){
+          login = userinfo.userName.length != 0
+          avatar= userinfo.userImg
+          name = userinfo.nickName
+          avatar += "_lower";
+        }else {
+          login = false
+
+        }
+
+        // console.log(avatar);
         // console.log( this.$store.state.name);
         return {
           login, avatar,name
@@ -115,10 +103,17 @@
           }
         })
       },
+      handleCommand(command) {
+        // this.$message('click on item ' + command);
+        if (command === 'userCenter'){
+          this.userCenter();
+        }
+      },
       userCenter(){
         //跳转个人中心
         let userinfo = getUserInfo();
         let id = userinfo.id;
+        console.log(id);
         this.$router.push({path: '/usercenter/' + id})
       }
     }
@@ -155,5 +150,8 @@
     border-radius: 50%;
     vertical-align: middle;
     background-color: #5fb878;
+  }
+  .sub_menu {
+    float: left;
   }
 </style>

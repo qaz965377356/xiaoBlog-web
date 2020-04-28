@@ -54,6 +54,10 @@ const router = new Router({
           component: r => require.ensure([], () => r(require('@/views/blog/BlogView')), 'blogview')
         },
         {
+          path: '/usercenter/:id',
+          component: r => require.ensure([], () => r(require('@/views/UserCenter')), 'usercenter')
+        },
+        {
           path: '/:type/all',
           component: r => require.ensure([], () => r(require('@/views/blog/BlogAllCategoryTag')), 'blogallcategorytag')
         },
@@ -61,10 +65,6 @@ const router = new Router({
           path: '/:type/:id',
           component: r => require.ensure([], () => r(require('@/views/blog/BlogCategoryTag')), 'blogcategorytag')
         },
-        {
-          path: '/usercenter/:id',
-          component: r => require.ensure([], () => r(require('@/views/UserCenter')), 'UserCenter')
-        }
       ]
     },
     {
