@@ -8,7 +8,7 @@
       </p>
       <p>
         <strong>
-          <a src="http://www.beian.miit.gov.cn/" class="me-login-design-color">赣ICP备20004632号</a>
+          <a href="http://www.beian.miit.gov.cn/" class="me-login-design-color">赣ICP备20004632号-2</a>
         </strong>
       </p>
 
