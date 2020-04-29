@@ -48,10 +48,10 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+    index: path.resolve(__dirname, '../xBlog/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsRoot: path.resolve(__dirname, '../xBlog'),
     assetsSubDirectory: 'static',
     /**
      *	可以将 build 的路径前缀修改为 ' ./ '（原本为 ' / '），是因为打包之后，外部引入 js 和 css 文件时，如果路
@@ -66,7 +66,7 @@ module.exports = {
 
     productionSourceMap: true,
     // https://webpack.js.org/configuration/devtool/#production
-    devtool: '#source-map',
+    devtool: 'source-map',
 
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.

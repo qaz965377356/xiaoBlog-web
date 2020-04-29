@@ -9,6 +9,8 @@ import lodash from 'lodash'
 
 import ElementUI from 'element-ui'
 import '@/assets/theme/index.css'
+// import less from 'less'
+
 
 import '@/assets/icon/iconfont.css'
 import api  from './http/index'
@@ -22,6 +24,7 @@ Vue.config.productionTip = false
 
 Vue.use(ElementUI)
 Vue.use(api)
+// Vue.use(less)
 
 Object.defineProperty(Vue.prototype, '$_', { value: lodash })
 

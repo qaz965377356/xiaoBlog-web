@@ -1,17 +1,11 @@
 <template>
   <el-footer class="me-area">
     <div class="me-footer">
-      <p>Designed by
-        <strong>
-          <router-link to="/" class="me-login-design-color">xX</router-link>
-        </strong>
-      </p>
       <p>
-        <strong>
-          <a href="http://www.beian.miit.gov.cn/" class="me-login-design-color">赣ICP备20004632号-2</a>
-        </strong>
-      </p>
+          Copyright©2019-2020  shawxy.cn  .All Rights Reserved 
 
+          <a href="http://www.beian.miit.gov.cn/" class="me-login-design-color">赣ICP备20004632号-2</a>
+      </p>
     </div>
   </el-footer>
 
